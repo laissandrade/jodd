@@ -678,6 +678,11 @@ public class JsonParser extends JsonParserBase {
 	protected Object parseArrayContent(Class targetType, Class componentType) {
 		targetType = replaceWithMappedTypeForPath(targetType);
 
+		if (targetType == Object.class) {
+			// ignore target type and create default array object
+			targetType = null;
+		}
+
 		if (componentType == null && targetType != null && targetType.isArray()) {
 			componentType = targetType.getComponentType();
 		}
@@ -738,6 +743,11 @@ public class JsonParser extends JsonParserBase {
 	 */
 	protected Object parseObjectContent(Class targetType, Class valueKeyType, Class valueType) {
 		targetType = replaceWithMappedTypeForPath(targetType);
+
+		if (targetType == Object.class) {
+			// ignore target type and create default map object
+			targetType = null;
+		}
 
 		Object target;
 		boolean isTargetTypeMap = true;
